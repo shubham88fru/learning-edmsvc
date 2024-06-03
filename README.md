@@ -17,3 +17,15 @@
 	have a SAGA class that acts as an orchestrator of commands/events that need to be sent.
 	The SAGA class keep emitting events one by one based on the current state to acheive the 
 	end goal.
+
+- CQRS: Command Query Responsibility Segregation:
+	In this pattern the responsibilities of the application are mainly divided into two
+	categories - Commands and Queries.
+	
+	Types of messages:
+		- Command: Express the intent to change the applications' state.
+		  Ex. CreateProductCommand, UpdateProductCommand, DeleteProductCommand.
+		- Query: Express the desire for information.
+		  Ex. FindProductQuery, GetUserQuery.
+		- Event: Represent a notification that something relevant has happened.
+		  Ex. ProductCreatedEvent, ProductUpdatedEvent.
