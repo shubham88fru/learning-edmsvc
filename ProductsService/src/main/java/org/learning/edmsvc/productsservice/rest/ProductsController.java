@@ -1,11 +1,16 @@
 package org.learning.edmsvc.productsservice.rest;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/products")
 public class ProductsController {
+
+    @Autowired
+    Environment environment;
 
     @PostMapping
     public String createProduct() {
@@ -14,7 +19,10 @@ public class ProductsController {
 
     @GetMapping
     public String getProduct() {
-        return "HTTP GET";
+        //local.server.port gives the actual port on which the process is listening.
+        //Remember, we have server.port to 0 and relying on spring to choose a port for us.
+        //That chosen values is given by local.server.port.
+        return "HTTP GET " + environment.getProperty("local.server.port");
     }
 
     @PutMapping
