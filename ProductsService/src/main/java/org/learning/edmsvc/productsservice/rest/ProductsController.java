@@ -2,6 +2,7 @@ package org.learning.edmsvc.productsservice.rest;
 
 
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.learning.edmsvc.productsservice.command.CreateProductCommand;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/products")
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class ProductsController {
 
     private final Environment environment;
