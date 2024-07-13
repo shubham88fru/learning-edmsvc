@@ -1,11 +1,9 @@
-package org.learning.edmsvc.productsservice.rest;
+package org.learning.edmsvc.productsservice.command.rest;
 
 
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.learning.edmsvc.productsservice.command.CreateProductCommand;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,7 +12,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/products")
 @RequiredArgsConstructor
-public class ProductsController {
+public class ProductsCommandController {
 
     private final Environment environment;
     private final CommandGateway commandGateway;

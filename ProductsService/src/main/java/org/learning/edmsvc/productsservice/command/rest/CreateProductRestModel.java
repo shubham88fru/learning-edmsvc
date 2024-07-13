@@ -1,4 +1,4 @@
-package org.learning.edmsvc.productsservice.rest;
+package org.learning.edmsvc.productsservice.command.rest;
 
 import lombok.Data;
 
