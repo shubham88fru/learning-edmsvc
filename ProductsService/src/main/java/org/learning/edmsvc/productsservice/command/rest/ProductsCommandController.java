@@ -35,22 +35,4 @@ public class ProductsCommandController {
 
         return returnValue;
     }
-
-    @GetMapping
-    public String getProduct() {
-        //local.server.port gives the actual port on which the process is listening.
-        //Remember, we have server.port to 0 and relying on spring to choose a port for us.
-        //That chosen values is given by local.server.port.
-        return "HTTP GET " + environment.getProperty("local.server.port");
-    }
-
-    @PutMapping
-    public String updateProduct() {
-        return "HTTP PUT handled";
-    }
-
-    @DeleteMapping
-    public String deleteProduct() {
-        return "HTTP DELETE Handled";
-    }
 }
