@@ -1,6 +1,7 @@
 package org.learning.edmsvc.productsservice.command.rest;
 
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.learning.edmsvc.productsservice.command.CreateProductCommand;
@@ -18,7 +19,7 @@ public class ProductsCommandController {
     private final CommandGateway commandGateway;
 
     @PostMapping
-    public String createProduct(@RequestBody CreateProductRestModel createProductRestModel) {
+    public String createProduct(@Valid @RequestBody CreateProductRestModel createProductRestModel) {
         CreateProductCommand createProductCommand = CreateProductCommand.builder()
                 .price(createProductRestModel.getPrice())
                 .title(createProductRestModel.getTitle())
