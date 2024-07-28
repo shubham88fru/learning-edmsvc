@@ -3,6 +3,8 @@ package org.learning.edmsvc.productsservice.command.interceptors;
 import org.axonframework.commandhandling.CommandMessage;
 import org.axonframework.messaging.MessageDispatchInterceptor;
 import org.learning.edmsvc.productsservice.command.CreateProductCommand;
+import org.learning.edmsvc.productsservice.core.data.ProductLookupEntity;
+import org.learning.edmsvc.productsservice.core.data.ProductLookupRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -16,6 +18,12 @@ import java.util.function.BiFunction;
 public class CreateProductCommandInterceptor implements MessageDispatchInterceptor<CommandMessage<?>> {
     private static final Logger log = LoggerFactory.getLogger(CreateProductCommandInterceptor.class);
 
+    private final ProductLookupRepository productLookupRepository;
+
+    public CreateProductCommandInterceptor(ProductLookupRepository productLookupRepository) {
+        this.productLookupRepository = productLookupRepository;
+    }
+
     @Nonnull
     @Override
     public BiFunction<Integer, CommandMessage<?>, CommandMessage<?>>
@@ -24,15 +32,9 @@ public class CreateProductCommandInterceptor implements MessageDispatchIntercept
             log.info("Intercepted command: {}", command.getPayloadType());
             if (CreateProductCommand.class.equals(command.getPayloadType())) {
                 CreateProductCommand createProductCommand = (CreateProductCommand) command.getPayload();
-                // Valid create product command.
-                if (createProductCommand.getPrice().compareTo(BigDecimal.ZERO) <= 0) {
-                    throw new IllegalArgumentException("Price cannot be less or equal than zero.");
-                }
-
-                if (createProductCommand.getTitle() == null ||
-                        createProductCommand.getTitle().isBlank()) {
-                    throw new IllegalArgumentException("Title cannot be empty.");
-                }
+                ProductLookupEntity productLookupEntity = productLookupRepository.findByProductIdOrTitle(createProductCommand.getProductId(),
+                        createProductCommand.getTitle());
+                if (productLookupEntity != null) throw new IllegalStateException("Product with the same id or title already exists.");
             }
 
             return command;
