@@ -2,6 +2,7 @@ package org.learning.edmsvc.productsservice.query;
 
 import org.axonframework.config.ProcessingGroup;
 import org.axonframework.eventhandling.EventHandler;
+import org.axonframework.messaging.interceptors.ExceptionHandler;
 import org.learning.edmsvc.productsservice.core.data.ProductEntity;
 import org.learning.edmsvc.productsservice.core.data.ProductRepository;
 import org.learning.edmsvc.productsservice.core.events.ProductCreatedEvent;
@@ -16,6 +17,11 @@ public class ProductEventsHandler {
 
     public ProductEventsHandler(ProductRepository productRepository) {
         this.productRepository = productRepository;
+    }
+
+    @ExceptionHandler(resultType = IllegalArgumentException.class)
+    public void handle(IllegalArgumentException exception) {
+
     }
 
     @EventHandler
